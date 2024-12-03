@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Label Image Component</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-size: 24px;
+    }
+    img {
+      max-width: 100px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Enter Text to Display Image</h1>
+  <input type="text" id="textBox" placeholder="Type here..." oninput="updateLabel()">
+  <label id="label">
+    <!-- The image will be displayed here -->
+  </label>
+
+  <script>
+    function updateLabel() {
+      const textBoxValue = document.getElementById('textBox').value.toLowerCase();
+      const label = document.getElementById('label');
+      
+      // Clear previous image
+      label.innerHTML = '';=
+      
+      console.log('Input value:', textBoxValue); // Debugging input value
+
+      // Check the text input and display the corresponding image
+      let imagePath = '';
+
+      if (textBoxValue === 'happy') {
+        imagePath = 'src/image/happy.png'; // Correct path to the happy image
+      } else if (textBoxValue === 'like') {
+        imagePath = 'src/image/like.png'; // Correct path to the like image
+      } else if (textBoxValue === 'love') {
+        imagePath = 'src/image/Love.png'; // Correct path to the Love image
+      }
+
+      // Log the image path to the console for debugging
+      console.log('Image Path:', imagePath);
+
+      if (imagePath) {
+        const img = new Image();
+        img.onload = function() {
+          console.log('Image loaded successfully');
+          label.innerHTML = `<img src="${imagePath}" alt="Image">`;
+        };
+        img.onerror = function() {
+          console.error('Error loading image');
+          label.innerHTML = 'Error loading image.';
+        };
+        img.src = imagePath; // Set the image path for loading
+      } else {
+        label.innerHTML = 'No matching image for: ' + textBoxValue;
+      }
+    }
+  </script>
+</body>
+</html>
